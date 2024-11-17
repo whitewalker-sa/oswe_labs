@@ -52,8 +52,22 @@ sudo docker exec -it png-mysql-test mysql -u atutor -p
 ```
 
 ### Misc
-Fix persmissions
+Fix persmissions in atutor webserver containter
 
+
+Check the UID/GID of the user running the webserver in the container by  running:
+```bash
+sudo docker exec -it <c_id> id
+```
+
+Check Permissions in the container:
+```bash
+sudo docker exec -it <c_id> bash
+ls -l sessions
+
+```
+
+If permission are wrong, you can correct them inside the container with:
 
 ```bash
 sudo chmod -R 777 ./sessions
@@ -76,3 +90,8 @@ Check permission
 sudo docker exec -it <container_id> bash
 ls -l /sessions  # Check permissions
 ```
+
+
+## TODO
+
+Fix documentation properly

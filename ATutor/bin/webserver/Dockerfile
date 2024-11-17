@@ -11,11 +11,12 @@ WORKDIR /var/www/html
 RUN a2enmod rewrite
 
 # Install any required PHP extensions (example: mysqli)
-RUN docker-php-ext-install mysqli
+RUN docker-php-ext-install mysqli pdo_mysql
 RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev && docker-php-ext-configure gd --with-freetype --with-jpeg && docker-php-ext-install gd
-RUN echo "session.save_path = /var/lib/php/sessions" >> /usr/local/etc/php/conf.d/custom.ini
 
 
+# Configure session save path (set to a directory accessible by PHP)
+RUN echo "session.save_path = /sessions" >> /usr/local/etc/php/conf.d/custom.ini
 # Expose port 80
 EXPOSE 80
 

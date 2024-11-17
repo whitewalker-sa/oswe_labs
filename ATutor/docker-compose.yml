@@ -1,21 +1,23 @@
 services:
   webserver:
-    build: 
+    build:
       context: ./bin/webserver
-    ports: 
+    volumes:
+      - ./sessions:/sessions  # Maps sessions folder for webserver
+      - ./bin/webserver/www:/var/www/html                 # Your application files
+    ports:
       - "8009:80"
     networks:
       - default
 
   mysql:
     build: ./bin/mysql
-    container_name: 'png-mysql-test'
+    container_name: 'atutor_mysql'
     ports:
       - "3306:3306"
     volumes:
       - ./data/mysql:/var/lib/mysql
       - ./logs/mysql:/var/log/mysql/
-      # - ./bin/mysql/my.cnf:/etc/mysql/my.cnf
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: atutor
@@ -35,7 +37,7 @@ services:
     ports:
       - "8010:80"
     volumes:
-      - ./sessions:/sessions
+      - ./sessions:/sessions  # Shared session folder for phpMyAdmin
     networks:
       - default
 

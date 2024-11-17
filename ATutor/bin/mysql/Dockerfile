@@ -3,7 +3,7 @@ FROM mysql:8.0
 
 # Copy custom MySQL configurations if needed
 # Uncomment and modify if you have a custom configuration
-# COPY ./my.cnf /etc/mysql/my.cnf
+COPY ./my.cnf /etc/mysql/my.cnf
 
 # Expose the MySQL port
 EXPOSE 3306
