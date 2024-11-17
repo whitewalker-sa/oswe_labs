@@ -1,0 +1,4 @@
+/ATutor/bin/webserver/www/*
+/ATutor/bin/webserver/myconf
+/ATutor/data/*
+/.vscode

@@ -25,30 +25,30 @@ for value in $string; do echo  `sudo docker rm -f  $value ` ; done
 
 
 build_and_run(){
+  sudo service mysql stop &> /dev/null
 
-sudo service mysql stop &> /dev/null
+  if ! docker --version  &> /dev/null
+  then 
+    echo "Docker is not installed."
+    exit 1
+  fi 
 
-if ! docker --version  &> /dev/null
-then 
-	echo " docker Not found !! "
-	exit
-fi 
+  if ! docker compose -v  &> /dev/null
+  then
+    echo "Docker Compose is not installed."
+    exit 1
+  fi 
 
-if ! docker-compose -v  &> /dev/null
-then
-    echo " docker-compose Not Found !! "
-    exit
-else
+  # Check for required directories
+  if [ ! -d "./bin/webserver" ]; then
+    echo "Error: Directory './bin/webserver' does not exist."
+    exit 1
+  fi 
 
-sudo docker-compose	build    
-sudo docker-compose up   
-
-
-fi
-
-	
-	
+  sudo docker compose build    
+  sudo docker compose up
 }
+
 
 
 
